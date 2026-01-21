@@ -6,6 +6,7 @@ import {
   Copy, Check, Star, Activity, BarChart3, Clock, Layers
 } from 'lucide-react';
 import { FeatureCard } from '@/components/FeatureCard';
+import { DownloadStats } from '@/components/DownloadStats';
 import { DOWNLOAD_CONFIG, trackDownload } from '@/config/downloads';
 import { APP_CONFIG } from '@/config/app';
 
@@ -176,6 +177,8 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col items-center gap-4">
+              <DownloadStats />
+              
               <div className="flex items-center gap-3 px-5 py-2 glass rounded-full border-slate-800">
                 <div className="flex -space-x-2">
                   {[1, 2, 3, 4].map(i => (
