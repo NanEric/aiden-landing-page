@@ -6,6 +6,7 @@ import {
   Copy, Check, Star, Activity, BarChart3, Clock, Layers
 } from 'lucide-react';
 import { FeatureCard } from '@/components/FeatureCard';
+import { DOWNLOAD_CONFIG, trackDownload } from '@/config/downloads';
 
 export default function Home() {
   const [copied, setCopied] = useState(false);
@@ -153,14 +154,24 @@ export default function Home() {
             <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter leading-none">Upgrade your Gemini <br /> development experience.</h2>
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12">
-              <button className="w-full md:w-auto px-10 py-5 bg-white text-black rounded-2xl font-black text-lg hover:bg-cyan-400 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-white/5 active:scale-95">
+              <a 
+                href={DOWNLOAD_CONFIG.mac.url}
+                className="w-full md:w-auto px-10 py-5 bg-white text-black rounded-2xl font-black text-lg hover:bg-cyan-400 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-white/5 active:scale-95 no-underline"
+                download={DOWNLOAD_CONFIG.mac.fileName}
+                onClick={() => trackDownload('mac')}
+              >
                 <Apple className="w-6 h-6" />
                 Download for macOS
-              </button>
-              <button className="w-full md:w-auto px-10 py-5 bg-slate-900 border border-slate-800 text-white rounded-2xl font-black text-lg hover:border-slate-500 transition-all flex items-center justify-center gap-3 active:scale-95">
+              </a>
+              <a 
+                href={DOWNLOAD_CONFIG.windows.url}
+                className="w-full md:w-auto px-10 py-5 bg-slate-900 border border-slate-800 text-white rounded-2xl font-black text-lg hover:border-slate-500 transition-all flex items-center justify-center gap-3 active:scale-95 no-underline"
+                download={DOWNLOAD_CONFIG.windows.fileName}
+                onClick={() => trackDownload('windows')}
+              >
                 <Monitor className="w-6 h-6" />
                 Download for Windows
-              </button>
+              </a>
             </div>
 
             <div className="flex flex-col items-center gap-4">

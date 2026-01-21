@@ -1,4 +1,12 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aiden 产品官网
+
+这是 Aiden 产品的官方网站，使用 Next.js 构建。
+
+## 环境变量配置
+
+请参考 [ENV.md](ENV.md) 文件配置环境变量。
+
+## 开始开发
 
 ## Getting Started
 
