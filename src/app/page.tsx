@@ -178,17 +178,6 @@ export default function Home() {
 
             <div className="flex flex-col items-center gap-4">
               <DownloadStats />
-              
-              <div className="flex items-center gap-3 px-5 py-2 glass rounded-full border-slate-800">
-                <div className="flex -space-x-2">
-                  {[1, 2, 3, 4].map(i => (
-                    <div key={i} className="w-6 h-6 rounded-full border-2 border-slate-950 bg-slate-800 flex items-center justify-center overflow-hidden">
-                      <img src={`https://i.pravatar.cc/100?u=${i}`} alt="user" className="w-full h-full object-cover" />
-                    </div>
-                  ))}
-                </div>
-                <span className="text-xs font-bold text-slate-400 tracking-tight">10,000+ engineers joined this month</span>
-              </div>
 
               <div className="flex items-center gap-4 text-xs font-mono text-slate-600 mt-4">
                 <span>VERSION: {APP_CONFIG.version}</span>
