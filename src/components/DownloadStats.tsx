@@ -18,9 +18,17 @@ export const DownloadStats: React.FC = () => {
     const fetchStats = async () => {
       try {
         const data = await getDownloadStats();
-        setStats(data);
+        // 确保数据不为 null 或 undefined
+        const safeData = {
+          mac: data?.mac || 0,
+          windows: data?.windows || 0,
+          total: data?.total || 0
+        };
+        setStats(safeData);
       } catch (error) {
         console.error('Failed to fetch download stats:', error);
+        // 出错时使用默认值
+        setStats({ mac: 0, windows: 0, total: 0 });
       } finally {
         setLoading(false);
       }
@@ -49,7 +57,7 @@ export const DownloadStats: React.FC = () => {
       <div className="flex items-center gap-2 px-4 py-2 glass rounded-full border-slate-800">
         <TrendingUp className="w-4 h-4 text-cyan-400" />
         <span className="text-sm font-bold text-white">
-          {stats.total.toLocaleString()} Downloads
+          {(stats.total || 0).toLocaleString()} Downloads
         </span>
       </div>
 
@@ -57,11 +65,11 @@ export const DownloadStats: React.FC = () => {
       <div className="flex items-center gap-6 text-xs font-mono text-slate-500">
         <div className="flex items-center gap-2">
           <Apple className="w-3 h-3" />
-          <span>macOS: {stats.mac.toLocaleString()}</span>
+          <span>macOS: {(stats.mac || 0).toLocaleString()}</span>
         </div>
         <div className="flex items-center gap-2">
           <Monitor className="w-3 h-3" />
-          <span>Windows: {stats.windows.toLocaleString()}</span>
+          <span>Windows: {(stats.windows || 0).toLocaleString()}</span>
         </div>
       </div>
     </div>
