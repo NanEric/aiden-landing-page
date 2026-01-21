@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { FeatureCard } from '@/components/FeatureCard';
 import { DOWNLOAD_CONFIG, trackDownload } from '@/config/downloads';
+import { APP_CONFIG } from '@/config/app';
 
 export default function Home() {
   const [copied, setCopied] = useState(false);
@@ -63,7 +64,7 @@ export default function Home() {
         <section className="px-6 max-w-7xl mx-auto text-center mb-32">
           <div className="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-full text-xs font-bold text-cyan-400 mb-8 animate-bounce">
             <Star className="w-3 h-3 fill-current" />
-            v1.0.2 Now Live
+            {APP_CONFIG.version} Now Live
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-white mb-6 leading-tight">
             Bring Clarity to Your <br />
@@ -187,7 +188,7 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-4 text-xs font-mono text-slate-600 mt-4">
-                <span>VERSION: v1.0.2</span>
+                <span>VERSION: {APP_CONFIG.version}</span>
                 <span className="w-1 h-1 rounded-full bg-slate-800"></span>
                 <span className="text-slate-500">STABLE BUILD</span>
                 <span className="w-1 h-1 rounded-full bg-slate-800"></span>
