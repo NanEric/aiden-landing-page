@@ -29,10 +29,28 @@ export default async function Page() {
     windowsUrl = process.env.NEXT_PUBLIC_DOWNLOAD_URL_WINDOWS || "";
   }
 
+  // 尝试从 windowsUrl 提取版本号
+  // 格式: https://.../download/0.1.0/aiden-monitor_0.1.0_x64_en-US.zip
+  let version = "";
+  if (windowsUrl) {
+    try {
+      const match = windowsUrl.match(/\/download\/([^\/]+)\//);
+      if (match && match[1]) {
+        version = match[1];
+        if (!version.startsWith('v')) {
+          version = 'v' + version;
+        }
+      }
+    } catch (e) {
+      console.warn("Failed to extract version from windowsUrl:", e);
+    }
+  }
+
   return (
     <LandingPage 
       macUrl={macUrl} 
-      windowsUrl={windowsUrl} 
+      windowsUrl={windowsUrl}
+      version={version}
     />
   );
 }
