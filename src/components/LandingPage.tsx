@@ -11,6 +11,7 @@ import { DOWNLOAD_CONFIG, trackDownload } from '@/config/downloads';
 import { APP_CONFIG } from '@/config/app';
 import { useLanguage } from '@/components/LanguageContext';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { DownloadTips } from '@/components/DownloadTips';
 
 interface LandingPageProps {
   macUrl: string;
@@ -19,6 +20,7 @@ interface LandingPageProps {
 
 export default function LandingPage({ macUrl, windowsUrl }: LandingPageProps) {
   const [copied, setCopied] = useState(false);
+  const [showDownloadTips, setShowDownloadTips] = useState(false);
   const { t } = useLanguage();
 
   const copyToClipboard = () => {
@@ -34,6 +36,16 @@ export default function LandingPage({ macUrl, windowsUrl }: LandingPageProps) {
       element.scrollIntoView({ behavior: 'smooth' });
       // Update URL hash without jumping
       window.history.pushState(null, '', `#${id}`);
+    }
+  };
+
+  const handleDownloadClick = (type: 'mac' | 'windows') => {
+    trackDownload(type);
+
+    // Check if user has opted out of seeing tips
+    const hideTips = localStorage.getItem('aiden_hide_download_tips');
+    if (hideTips !== 'true') {
+      setShowDownloadTips(true);
     }
   };
 
@@ -162,7 +174,7 @@ export default function LandingPage({ macUrl, windowsUrl }: LandingPageProps) {
                 href={macUrl || DOWNLOAD_CONFIG.mac.url}
                 className="w-full md:w-auto px-10 py-5 bg-white text-black rounded-2xl font-black text-lg hover:bg-cyan-400 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-white/5 active:scale-95 no-underline"
                 download={DOWNLOAD_CONFIG.mac.fileName}
-                onClick={() => trackDownload('mac')}
+                onClick={() => handleDownloadClick('mac')}
               >
                 <Apple className="w-6 h-6" />
                 {t.download.macos}
@@ -171,7 +183,7 @@ export default function LandingPage({ macUrl, windowsUrl }: LandingPageProps) {
                 href={windowsUrl || DOWNLOAD_CONFIG.windows.url}
                 className="w-full md:w-auto px-10 py-5 bg-slate-900 border border-slate-800 text-white rounded-2xl font-black text-lg hover:border-slate-500 transition-all flex items-center justify-center gap-3 active:scale-95 no-underline"
                 download={DOWNLOAD_CONFIG.windows.fileName}
-                onClick={() => trackDownload('windows')}
+                onClick={() => handleDownloadClick('windows')}
               >
                 <Monitor className="w-6 h-6" />
                 {t.download.windows}
@@ -211,6 +223,11 @@ export default function LandingPage({ macUrl, windowsUrl }: LandingPageProps) {
           </div>
         </div>
       </footer>
+
+      <DownloadTips
+        isOpen={showDownloadTips}
+        onClose={() => setShowDownloadTips(false)}
+      />
     </div>
   );
 }
