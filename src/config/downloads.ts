@@ -1,10 +1,10 @@
 export const DOWNLOAD_CONFIG = {
   mac: {
-    url: process.env.NEXT_PUBLIC_DOWNLOAD_URL_MAC || 'https://unsplash.com/photos/JUivXruBs2U/download?force=true',
+    url: 'https://unsplash.com/photos/JUivXruBs2U/download?force=true',
     fileName: 'aiden-mac.dmg'
   },
   windows: {
-    url: process.env.NEXT_PUBLIC_DOWNLOAD_URL_WINDOWS || 'https://unsplash.com/photos/JUivXruBs2U/download?force=true',
+    url: 'https://unsplash.com/photos/JUivXruBs2U/download?force=true',
     fileName: 'aiden-windows.exe'
   }
 };
