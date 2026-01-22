@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import {
   Zap, Download, Apple, Monitor, Terminal as TerminalIcon,
-  Copy, Check, Star, Activity, BarChart3, Clock, Layers
+  Copy, Check, Star, Activity, BarChart3, Clock, Layers, Share2
 } from 'lucide-react';
 import { FeatureCard } from '@/components/FeatureCard';
 import { DownloadStats } from '@/components/DownloadStats';
@@ -21,6 +21,7 @@ interface LandingPageProps {
 
 export default function LandingPage({ macUrl, windowsUrl, version }: LandingPageProps) {
   const [copied, setCopied] = useState(false);
+  const [shareSuccess, setShareSuccess] = useState(false);
   const [showDownloadTips, setShowDownloadTips] = useState(false);
   const { t } = useLanguage();
 
@@ -30,6 +31,30 @@ export default function LandingPage({ macUrl, windowsUrl, version }: LandingPage
     navigator.clipboard.writeText('npm install -g aiden-cli');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Aiden',
+          text: 'Check out Aiden - The AI Monitoring Engine',
+          url: window.location.href,
+        });
+      } catch (err) {
+        if ((err as Error).name !== 'AbortError') {
+          copyLink();
+        }
+      }
+    } else {
+      copyLink();
+    }
+  };
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setShareSuccess(true);
+    setTimeout(() => setShareSuccess(false), 2000);
   };
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -64,22 +89,32 @@ export default function LandingPage({ macUrl, windowsUrl, version }: LandingPage
             <span className="text-xl font-black tracking-tighter text-white">AIDEN</span>
           </div>
 
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
-            <LanguageSwitcher />
-            <a
-              href="#features"
-              onClick={(e) => scrollToSection(e, 'features')}
-              className="hover:text-cyan-400 transition-colors cursor-pointer"
+          <div className="flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+              <LanguageSwitcher />
+              <a
+                href="#features"
+                onClick={(e) => scrollToSection(e, 'features')}
+                className="hover:text-cyan-400 transition-colors cursor-pointer"
+              >
+                {t.nav.features}
+              </a>
+              <a
+                href="#download"
+                onClick={(e) => scrollToSection(e, 'download')}
+                className="bg-white text-black px-5 py-2 rounded-full font-bold hover:bg-cyan-400 transition-all active:scale-95 shadow-lg shadow-white/5 cursor-pointer"
+              >
+                {t.nav.download}
+              </a>
+            </div>
+
+            <button
+              onClick={handleShare}
+              className="text-slate-400 hover:text-cyan-400 transition-colors p-2 rounded-full hover:bg-white/5"
+              aria-label="Share"
             >
-              {t.nav.features}
-            </a>
-            <a
-              href="#download"
-              onClick={(e) => scrollToSection(e, 'download')}
-              className="bg-white text-black px-5 py-2 rounded-full font-bold hover:bg-cyan-400 transition-all active:scale-95 shadow-lg shadow-white/5 cursor-pointer"
-            >
-              {t.nav.download}
-            </a>
+              {shareSuccess ? <Check className="w-5 h-5 text-green-500" /> : <Share2 className="w-5 h-5" />}
+            </button>
           </div>
         </div>
       </nav>
