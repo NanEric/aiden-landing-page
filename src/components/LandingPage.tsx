@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Zap, Download, Apple, Monitor, Terminal as TerminalIcon,
   Copy, Check, Star, Activity, BarChart3, Clock, Layers, Share2
@@ -13,18 +13,31 @@ import { useLanguage } from '@/components/LanguageContext';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { DownloadTips } from '@/components/DownloadTips';
 
-interface LandingPageProps {
-  macUrl: string;
-  windowsUrl: string;
-  version?: string;
-}
-
-export default function LandingPage({ macUrl, windowsUrl, version }: LandingPageProps) {
+export default function LandingPage() {
+  const [config, setConfig] = useState({
+    macUrl: DOWNLOAD_CONFIG.mac.url,
+    windowsUrl: DOWNLOAD_CONFIG.windows.url,
+    version: APP_CONFIG.version
+  });
   const [copied, setCopied] = useState(false);
   const [shareSuccess, setShareSuccess] = useState(false);
   const [showDownloadTips, setShowDownloadTips] = useState(false);
   const { t } = useLanguage();
 
+  useEffect(() => {
+    fetch('/api/config')
+      .then(res => res.json())
+      .then(data => {
+        setConfig(prev => ({
+          macUrl: data.macUrl || prev.macUrl,
+          windowsUrl: data.windowsUrl || prev.windowsUrl,
+          version: data.version || prev.version
+        }));
+      })
+      .catch(err => console.error("Failed to load config:", err));
+  }, []);
+
+  const { macUrl, windowsUrl, version } = config;
   const displayVersion = version || APP_CONFIG.version;
 
   const copyToClipboard = () => {
