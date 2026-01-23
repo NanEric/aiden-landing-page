@@ -51,7 +51,6 @@ export const translations = {
             windows: 'Download for Windows',
             version: 'VERSION',
             stable: 'STABLE BUILD',
-            size: 'SIZE: 42.5MB',
         },
         footer: {
             engine: 'AIDEN ENGINE',
@@ -125,7 +124,6 @@ export const translations = {
             windows: '下载 Windows 版',
             version: '版本',
             stable: '稳定构建',
-            size: '大小: 42.5MB',
         },
         footer: {
             engine: 'AIDEN 引擎',

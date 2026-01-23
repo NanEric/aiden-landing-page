@@ -235,8 +235,6 @@ export default function LandingPage({ macUrl, windowsUrl, version }: LandingPage
                 <span>{t.download.version}: {displayVersion}</span>
                 <span className="w-1 h-1 rounded-full bg-slate-800"></span>
                 <span className="text-slate-500">{t.download.stable}</span>
-                <span className="w-1 h-1 rounded-full bg-slate-800"></span>
-                <span>{t.download.size}</span>
               </div>
             </div>
           </div>
