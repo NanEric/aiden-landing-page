@@ -1,0 +1,2 @@
+description = "调用docs-writer"
+prompt = "调用docs-writer技能,{{args}}"
