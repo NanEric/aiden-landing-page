@@ -1,2 +1,2 @@
 description = "分析项目架构并生成架构决策记录 (ADRs)"
-prompt = "调用 architecture-agent 技能分析以下内容并生成 ADR: {{args}}"
+prompt = "调用 architecture-agent 技能分析以下内容并生成 ADR: {{args}}。文档化后存储到 docs/ 目录下"
