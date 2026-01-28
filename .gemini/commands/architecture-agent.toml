@@ -1,4 +1,2 @@
-# 这种联动方式跳过了语义理解，直接对接函数
-[command]
-name = "arch"
-skill = "architecture-agent"
+description = "分析项目架构并生成架构决策记录 (ADRs)"
+prompt = "调用 architecture-agent 技能分析以下内容并生成 ADR: {{args}}"
