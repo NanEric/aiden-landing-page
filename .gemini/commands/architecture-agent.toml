@@ -1,0 +1,4 @@
+# 这种联动方式跳过了语义理解，直接对接函数
+[command]
+name = "arch"
+skill = "architecture-agent"
