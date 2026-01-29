@@ -3,62 +3,83 @@ export type Language = 'en' | 'zh';
 export const translations = {
     en: {
         nav: {
+            product: 'Product',
             features: 'Features',
             download: 'Download',
         },
         hero: {
-            badge: 'Version {{version}} Release',
-            titleLine1: 'Next-Gen Intelligence',
-            titleLine2: 'for Modern Monitoring.',
-            description: 'Optimize latency, track stability, and scale your infrastructure with the Aiden Smart Engine. The most intuitive data layer ever built.',
+            badge: 'System Status: High Fidelity (v4.2.0-stable)',
+            titleLine1: 'The Pro-Grade',
+            titleLine2: 'Monitoring Engine',
+            description: 'FULL-STACK OBSERVABILITY WITH SUB-MILLISECOND TELEMETRY PRECISION.',
         },
         mockup: {
-            activeLog: 'Aiden_Engine_Active.log',
-            tokensIn: 'TOKENS_IN',
-            latency: 'LATENCY',
-            stability: 'STABILITY',
-            initCmd: '> aiden init --model=gemini-3-pro',
-            initStep1: 'Initializing intake valves... [OK]',
-            initStep2: 'Synchronizing token vectors... [OK]',
-            initStep3: 'Monitoring real-time mechanical throughput...',
+            title: 'Performance Metrics',
+            subtitle: 'Real-time telemetry and energy consumption analysis',
+            lastSync: 'Last Sync',
+            totalTokens: 'Total Tokens',
+            estimatedCost: 'Estimated Cost',
+            contextWindow: 'Context Window',
+            activeDays: 'Active Days',
+            chartTitle: '24h Token Consumption Trend',
+            chartSubtitle: 'Aggregated throughput across all active endpoints',
+            peakThroughput: 'Peak Throughput',
+            systemLogs: 'System Logs',
+            ltmEfficiency: 'LTM Efficiency: 98.4%',
+            uptime: 'UPTIME'
         },
         features: {
-            heading: 'Core Monitoring Features',
-            subheading: 'Everything you need to maintain peak performance and security in a single, unified interface.',
+            heading: 'Core Engine Capabilities',
             cards: [
                 {
-                    title: 'Real-time Activity',
-                    description: 'Live monitoring of every request across your stack. Instant feedback for critical events.',
+                    title: 'Live Telemetry',
+                    description: 'Nanosecond-scale event streaming with zero-buffer ingestion for high-traffic nodes.',
+                    footer: 'Active Tracking'
                 },
                 {
-                    title: 'Advanced Analytics',
-                    description: 'Deep dives into data trends with AI-powered insights that predict bottlenecks before they happen.',
+                    title: 'ML Diagnostics',
+                    description: 'Neural networks identify drift patterns before they impact your service availability.',
+                    footer: 'Pattern Locked'
                 },
                 {
-                    title: 'Uptime Tracking',
-                    description: '24/7 clock-based monitoring for maximum availability with global heartbeat probes.',
+                    title: 'Global Heartbeat',
+                    description: 'Distributed probes across 14 global regions ensure 99.999% reliability benchmarks.',
+                    footer: 'Probes Online'
                 },
                 {
-                    title: 'Layered Security',
-                    description: 'Multi-layered protection for your entire infrastructure, featuring automated threat detection.',
+                    title: 'Hardened Security',
+                    description: 'AES-256 encrypted telemetry with automated vaulting and intrusion detection.',
+                    footer: 'Encrypted Core'
                 },
             ],
         },
         download: {
-            headingLine1: 'Upgrade your Gemini',
-            headingLine2: 'development experience.',
-            macos: 'Download for macOS',
-            windows: 'Download for Windows',
-            version: 'VERSION',
-            stable: 'STABLE BUILD',
+            heading: 'Ready for Deployment',
+            subheading: 'Native binaries for production environments',
+            cards: [
+                {
+                    platform: 'macOS',
+                    details: 'v4.2.0 • Universal Binary & Apple Silicon support',
+                    downloads: '14,203 DOWNLOADS',
+                    btnText: 'Download .DMG'
+                },
+                {
+                    platform: 'Windows',
+                    details: 'v4.2.0 • x64 & ARM64',
+                    downloads: '10,392 DOWNLOADS',
+                    btnText: 'Download .EXE'
+                }
+            ]
         },
         footer: {
-            engine: 'AIDEN ENGINE',
-            copyright: '© 2024 AIDEN MONITORING LTD.',
-            privacy: 'Privacy',
-            terms: 'Terms',
-            support: 'Support',
-            twitter: 'Twitter',
+            engine: 'AIDEN',
+            pro: 'PRO',
+            copyright: '© 2024 AIDEN SYSTEMS INC.',
+            links: {
+                terms: 'Terms',
+                privacy: 'Privacy',
+                contact: 'Contact'
+            }
         },
         tips: {
             title: 'Installation Guide',
@@ -76,62 +97,83 @@ export const translations = {
     },
     zh: {
         nav: {
+            product: '产品',
             features: '功能特性',
             download: '立即下载',
         },
         hero: {
-            badge: '{{version}} 版本发布',
-            titleLine1: '为现代监控而生',
-            titleLine2: '的新一代智能引擎',
-            description: '利用 Aiden 智能引擎优化延迟、追踪稳定并扩展您的基础设施。有史以来最直观的数据层。',
+            badge: '系统状态：高保真 (v4.2.0-stable)',
+            titleLine1: '专业级',
+            titleLine2: '监控引擎',
+            description: '全栈可观测性，具有亚毫秒级遥测精度。',
         },
         mockup: {
-            activeLog: 'Aiden_引擎_活动日志.log',
-            tokensIn: '输入 TOKEN',
-            latency: '延迟',
-            stability: '稳定性',
-            initCmd: '> aiden init --model=gemini-3-pro',
-            initStep1: '初始化进气阀... [完成]',
-            initStep2: '同步 Token 向量... [完成]',
-            initStep3: '正在监控实时机械吞吐量...',
+            title: '性能指标',
+            subtitle: '实时遥测与能耗分析',
+            lastSync: '最后同步',
+            totalTokens: '总 Token',
+            estimatedCost: '预估成本',
+            contextWindow: '上下文窗口',
+            activeDays: '活跃天数',
+            chartTitle: '24小时 Token 消耗趋势',
+            chartSubtitle: '所有活跃端点的聚合吞吐量',
+            peakThroughput: '峰值吞吐量',
+            systemLogs: '系统日志',
+            ltmEfficiency: 'LTM 效率: 98.4%',
+            uptime: '运行时间'
         },
         features: {
-            heading: '核心监控功能',
-            subheading: '在统一的界面中，提供维护卓越性能和安全所需的一切工具。',
+            heading: '核心引擎能力',
             cards: [
                 {
-                    title: '实时活动',
-                    description: '对技术栈中的每个请求进行实时监控。为关键事件提供即时反馈。',
+                    title: '实时遥测',
+                    description: '纳秒级事件流，针对高流量节点实现零缓冲摄取。',
+                    footer: '主动追踪'
                 },
                 {
-                    title: '高级分析',
-                    description: '深入探究数据趋势，利用 AI 洞察在瓶颈发生前进行预测。',
+                    title: 'ML 诊断',
+                    description: '神经网络在漂移模式影响服务可用性之前识别它们。',
+                    footer: '模式锁定'
                 },
                 {
-                    title: '在线追踪',
-                    description: '通过全球心跳探测，提供 24/7 全天候监控以确保最大可用性。',
+                    title: '全球心跳',
+                    description: '分布在 14 个全球区域的探测器确保 99.999% 的可靠性基准。',
+                    footer: '探测在线'
                 },
                 {
-                    title: '分层安全',
-                    description: '为您的整个基础设施提供多层保护，具备自动威胁检测功能。',
+                    title: '强化安全',
+                    description: '具有自动存储和入侵检测功能的 AES-256 加密遥测。',
+                    footer: '加密核心'
                 },
             ],
         },
         download: {
-            headingLine1: '升级您的 Gemini',
-            headingLine2: '开发体验',
-            macos: '下载 macOS 版',
-            windows: '下载 Windows 版',
-            version: '版本',
-            stable: '稳定构建',
+            heading: '准备部署',
+            subheading: '用于生产环境的原生二进制文件',
+            cards: [
+                {
+                    platform: 'macOS',
+                    details: 'v4.2.0 • 通用二进制 & Apple Silicon 支持',
+                    downloads: '14,203 次下载',
+                    btnText: '下载 .DMG'
+                },
+                {
+                    platform: 'Windows',
+                    details: 'v4.2.0 • x64 & ARM64',
+                    downloads: '10,392 次下载',
+                    btnText: '下载 .EXE'
+                }
+            ]
         },
         footer: {
-            engine: 'AIDEN 引擎',
-            copyright: '© 2024 AIDEN 监控有限公司',
-            privacy: '隐私政策',
-            terms: '服务条款',
-            support: '技术支持',
-            twitter: '推特',
+            engine: 'AIDEN',
+            pro: 'PRO',
+            copyright: '© 2024 AIDEN 系统公司',
+            links: {
+                terms: '条款',
+                privacy: '隐私',
+                contact: '联系我们'
+            }
         },
         tips: {
             title: '安装指南',

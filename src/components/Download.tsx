@@ -1,10 +1,8 @@
 "use client";
 
 import React from 'react';
-import { Apple, Monitor } from 'lucide-react';
-import { DownloadStats } from '@/components/DownloadStats';
-import { DOWNLOAD_CONFIG } from '@/config/downloads';
 import { useLanguage } from '@/components/LanguageContext';
+import { DOWNLOAD_CONTENT } from '@/data/mockData';
 
 interface DownloadProps {
   macUrl: string;
@@ -17,41 +15,58 @@ export function Download({ macUrl, windowsUrl, version, onDownloadClick }: Downl
   const { t } = useLanguage();
 
   return (
-    <section id="download" className="px-6 py-32 bg-background-dark/50 border-t border-border-dark scroll-mt-24">
-      <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter leading-tight">
-          {t.download.headingLine1} <br /> {t.download.headingLine2}
-        </h2>
-
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12">
-          <a
-            href={macUrl || DOWNLOAD_CONFIG.mac.url}
-            className="w-full md:w-auto px-10 py-5 bg-primary text-white rounded-xl font-bold text-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-3 shadow-xl shadow-primary/20 active:scale-95 no-underline"
-            download={DOWNLOAD_CONFIG.mac.fileName}
-            onClick={() => onDownloadClick('mac')}
-          >
-            <Apple className="w-6 h-6" />
-            {t.download.macos}
-          </a>
-          <a
-            href={windowsUrl || DOWNLOAD_CONFIG.windows.url}
-            className="w-full md:w-auto px-10 py-5 bg-slate-800 border border-slate-700 text-white rounded-xl font-bold text-lg hover:bg-slate-700 transition-all flex items-center justify-center gap-3 active:scale-95 no-underline"
-            download={DOWNLOAD_CONFIG.windows.fileName}
-            onClick={() => onDownloadClick('windows')}
-          >
-            <Monitor className="w-6 h-6" />
-            {t.download.windows}
-          </a>
+    <section className="py-32 px-6 bg-[#030712] relative overflow-hidden" id="download">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(112,0,255,0.1),transparent_50%)]"></div>
+      
+      <div className="max-w-5xl mx-auto relative z-10">
+        <div className="text-center mb-20">
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-normal uppercase premium-heading">
+            {t.download.heading}
+          </h2>
+          <p className="text-slate-500 font-mono text-xs uppercase tracking-[0.4em]">
+            {t.download.subheading}
+          </p>
         </div>
 
-        <div className="flex flex-col items-center gap-4">
-          <DownloadStats />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {DOWNLOAD_CONTENT.cards.map((card, index) => {
+            const isMac = card.platform === 'macOS';
+            const translatedCard = t.download.cards[index];
+            const gradientClass = isMac ? 'from-primary/20 hover:from-primary' : 'from-secondary/20 hover:from-secondary';
+            const neonClass = isMac ? 'group-hover:neon-border-cyan' : 'group-hover:neon-border-purple';
+            const pillClass = isMac ? 'bg-primary/10 border-primary/20 text-primary' : 'bg-secondary/10 border-secondary/20 text-secondary';
+            const btnBg = isMac ? 'bg-primary text-background-dark shadow-[0_0_20px_rgba(0,242,255,0.3)]' : 'bg-secondary text-white shadow-[0_0_20px_rgba(112,0,255,0.3)]';
+            const downloadUrl = isMac ? macUrl : windowsUrl;
 
-          <div className="flex items-center gap-4 text-xs font-medium text-slate-500 mt-4">
-            <span>{t.download.version}: {version}</span>
-            <span className="w-1 h-1 rounded-full bg-slate-800"></span>
-            <span className="text-slate-500">{t.download.stable}</span>
-          </div>
+            return (
+              <div key={card.platform} className={`group relative rounded-3xl p-1 bg-gradient-to-br ${gradientClass} to-transparent transition-all duration-500`}>
+                <div className="bg-background-dark/90 backdrop-blur-2xl rounded-[1.4rem] p-10 flex flex-col items-center text-center">
+                  <div className={`w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 ${neonClass} transition-all`}>
+                    <span className="material-symbols-outlined text-5xl text-white font-extralight">{card.icon}</span>
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold text-white mb-2 premium-heading uppercase">{card.platform}</h3>
+                  <p className="text-slate-500 font-mono text-[10px] mb-4 uppercase tracking-[0.2em]">{translatedCard.details}</p>
+                  
+                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border ${pillClass} text-[10px] font-mono mb-8 tracking-widest`}>
+                    <span className="material-symbols-outlined text-[12px]">download_done</span>
+                    {translatedCard.downloads}
+                  </div>
+                  
+                  <div className="w-full h-px bg-white/5 mb-8"></div>
+                  
+                  <a 
+                    href={downloadUrl}
+                    onClick={() => onDownloadClick(isMac ? 'mac' : 'windows')}
+                    className={`w-full py-4 rounded-xl ${btnBg} font-extrabold text-sm uppercase transition-all flex items-center justify-center gap-2 premium-heading hover:brightness-110 cursor-pointer`}
+                  >
+                    <span className="material-symbols-outlined text-lg">download</span>
+                    {translatedCard.btnText}
+                  </a>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

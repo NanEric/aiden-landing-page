@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { useLanguage } from '@/components/LanguageContext';
-import { HERO_CONTENT } from '@/data/mockData';
-import { DashboardMockup } from './DashboardMockup';
+import { DashboardDisplay } from './DashboardDisplay';
 
 interface HeroProps {
   version: string;
@@ -13,15 +12,9 @@ export function Hero({ version }: HeroProps) {
   const { t } = useLanguage();
 
   return (
-    <main className="pt-32 pb-20 relative overflow-hidden">
-      {/* Abstract background glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] pointer-events-none opacity-20 dark:opacity-30">
-        <div className="absolute top-20 left-1/4 w-96 h-96 bg-primary rounded-full blur-[120px]"></div>
-        <div className="absolute top-40 right-1/4 w-96 h-96 bg-indigo-600 rounded-full blur-[120px]"></div>
-      </div>
-
-      <section className="max-w-[1280px] mx-auto px-6 flex flex-col items-center text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-8 pulse-badge">
+    <section className="relative hero-glow overflow-hidden" id="hero">
+      <div className="max-w-7xl mx-auto flex flex-col items-center px-6 pt-56 pb-20">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-[10px] font-mono font-bold uppercase tracking-widest mb-10">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -29,27 +22,16 @@ export function Hero({ version }: HeroProps) {
           {t.hero.badge.replace('{{version}}', version)}
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight max-w-4xl leading-[1.1]">
-          <span className="hero-gradient-text">
-            {t.hero.titleLine1} {t.hero.titleLine2}
-          </span>
+        <h1 className="text-6xl md:text-8xl font-extrabold text-center mb-8 leading-[1.05] max-w-5xl premium-heading">
+          {t.hero.titleLine1} <span className="text-gradient">{t.hero.titleLine2}</span>
         </h1>
 
-        <p className="text-slate-400 text-lg md:text-xl max-w-2xl mb-12 leading-relaxed">
+        <p className="text-slate-400 text-center text-sm md:text-base max-w-3xl font-medium leading-relaxed uppercase tracking-[0.3em]">
           {t.hero.description}
         </p>
+      </div>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-20">
-          <button className="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl text-base font-bold transition-all shadow-xl shadow-primary/20">
-            {HERO_CONTENT.primaryCta}
-          </button>
-          <button className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-xl text-base font-bold border border-slate-700 transition-all">
-            {HERO_CONTENT.secondaryCta}
-          </button>
-        </div>
-
-        <DashboardMockup />
-      </section>
-    </main>
+      <DashboardDisplay />
+    </section>
   );
 }
