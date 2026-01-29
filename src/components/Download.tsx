@@ -13,7 +13,7 @@ interface DownloadProps {
 }
 
 export function Download({ macUrl, windowsUrl, version, onDownloadClick }: DownloadProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { stats, loading, error } = useDownloadStats();
 
   return (
@@ -42,7 +42,13 @@ export function Download({ macUrl, windowsUrl, version, onDownloadClick }: Downl
             
             // 获取真实的下载数据
             const downloadCount = isMac ? stats.mac : stats.windows;
-            const downloadsText = loading ? 'Loading...' : error ? 'N/A' : `${downloadCount.toLocaleString()} DOWNLOADS`;
+            const downloadsText = loading ? 'Loading...' : error ? 'N/A' : `${downloadCount.toLocaleString()} ${language === 'en' ? 'DOWNLOADS' : '次下载'}`;
+            
+            // 动态替换版本号和下载次数
+            const dynamicDetails = translatedCard.details
+              .replace('{{version}}', version)
+              .replace('{{macDownloads}}', stats.mac.toLocaleString())
+              .replace('{{windowsDownloads}}', stats.windows.toLocaleString());
 
             return (
               <div key={card.platform} className={`group relative rounded-3xl p-1 bg-gradient-to-br ${gradientClass} to-transparent transition-all duration-500`}>
@@ -52,7 +58,7 @@ export function Download({ macUrl, windowsUrl, version, onDownloadClick }: Downl
                   </div>
                   
                   <h3 className="text-2xl font-bold text-white mb-2 premium-heading uppercase">{card.platform}</h3>
-                  <p className="text-slate-500 font-mono text-[10px] mb-4 uppercase tracking-[0.2em]">{translatedCard.details}</p>
+                  <p className="text-slate-500 font-mono text-[10px] mb-4 uppercase tracking-[0.2em]">{dynamicDetails}</p>
                   
                   <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border ${pillClass} text-[10px] font-mono mb-8 tracking-widest`}>
                     <span className="material-symbols-outlined text-[12px]">download_done</span>

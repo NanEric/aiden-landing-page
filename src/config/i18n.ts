@@ -8,7 +8,7 @@ export const translations = {
             download: 'Download',
         },
         hero: {
-            badge: 'System Status: High Fidelity (v4.2.0-stable)',
+            badge: 'System Status: High Fidelity ({{version}}-stable)',
             titleLine1: 'The Pro-Grade',
             titleLine2: 'Monitoring Engine',
             description: 'FULL-STACK OBSERVABILITY WITH SUB-MILLISECOND TELEMETRY PRECISION.',
@@ -59,14 +59,14 @@ export const translations = {
             cards: [
                 {
                     platform: 'macOS',
-                    details: 'v4.2.0 • Universal Binary & Apple Silicon support',
-                    downloads: '14,203 DOWNLOADS',
+                    details: '{{version}} • Universal Binary & Apple Silicon support',
+                    downloads: '{{macDownloads}} DOWNLOADS',
                     btnText: 'Download .DMG'
                 },
                 {
                     platform: 'Windows',
-                    details: 'v4.2.0 • x64 & ARM64',
-                    downloads: '10,392 DOWNLOADS',
+                    details: '{{version}} • x64 & ARM64',
+                    downloads: '{{windowsDownloads}} DOWNLOADS',
                     btnText: 'Download .EXE'
                 }
             ]
@@ -102,7 +102,7 @@ export const translations = {
             download: '立即下载',
         },
         hero: {
-            badge: '系统状态：高保真 (v4.2.0-stable)',
+            badge: '系统状态：高保真 ({{version}}-stable)',
             titleLine1: '专业级',
             titleLine2: '监控引擎',
             description: '全栈可观测性，具有亚毫秒级遥测精度。',
@@ -153,14 +153,14 @@ export const translations = {
             cards: [
                 {
                     platform: 'macOS',
-                    details: 'v4.2.0 • 通用二进制 & Apple Silicon 支持',
-                    downloads: '14,203 次下载',
+                    details: '{{version}} • 通用二进制 & Apple Silicon 支持',
+                    downloads: '{{macDownloads}} 次下载',
                     btnText: '下载 .DMG'
                 },
                 {
                     platform: 'Windows',
-                    details: 'v4.2.0 • x64 & ARM64',
-                    downloads: '10,392 次下载',
+                    details: '{{version}} • x64 & ARM64',
+                    downloads: '{{windowsDownloads}} 次下载',
                     btnText: '下载 .EXE'
                 }
             ]
