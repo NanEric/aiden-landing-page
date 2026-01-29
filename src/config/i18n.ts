@@ -59,7 +59,7 @@ export const translations = {
             cards: [
                 {
                     platform: 'macOS',
-                    details: '{{version}} • Universal Binary & Apple Silicon support',
+                    details: '{{version}} • Apple Silicon support',
                     downloads: '{{macDownloads}} DOWNLOADS',
                     btnText: 'Download .DMG'
                 },
@@ -153,7 +153,7 @@ export const translations = {
             cards: [
                 {
                     platform: 'macOS',
-                    details: '{{version}} • 通用二进制 & Apple Silicon 支持',
+                    details: '{{version}} • Apple Silicon 支持',
                     downloads: '{{macDownloads}} 次下载',
                     btnText: '下载 .DMG'
                 },
