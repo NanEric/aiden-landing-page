@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { getKVKey } from '@/lib/kv-helper';
 
 export const dynamic = "force-dynamic";
 
@@ -15,8 +16,8 @@ export async function GET() {
   if (hasKV) {
     try {
       const { kv } = await import("@vercel/kv");
-      macUrl = await kv.get<string>("downloadzip:mac") || "";
-      windowsUrl = await kv.get<string>("downloadzip:windows") || "";
+      macUrl = await kv.get<string>(getKVKey("downloadzip:mac")) || "";
+      windowsUrl = await kv.get<string>(getKVKey("downloadzip:windows")) || "";
     } catch (error) {
       console.warn("Failed to fetch download URLs from KV:", error);
       // 使用环境变量作为降级方案

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getKVKey } from '@/lib/kv-helper';
 
 // 检查是否配置了有效的 KV（必须是真实的 HTTPS URL）
 const hasKV = process.env.KV_REST_API_URL && 
@@ -19,9 +20,9 @@ if (hasKV) {
 
 // 模拟数据存储（仅在开发环境或没有 KV 时使用）
 const mockData: { [key: string]: number } = {
-  'downloads:mac': 1234,
-  'downloads:windows': 5678,
-  'downloads:total': 6912
+  [getKVKey('downloads:mac')]: 1234,
+  [getKVKey('downloads:windows')]: 5678,
+  [getKVKey('downloads:total')]: 6912
 };
 
 export async function POST(request: NextRequest) {
@@ -33,8 +34,8 @@ export async function POST(request: NextRequest) {
     }
 
     // 增加下载计数
-    const key = `downloads:${platform}`;
-    const totalKey = 'downloads:total';
+    const key = getKVKey(`downloads:${platform}`);
+    const totalKey = getKVKey('downloads:total');
     
     if (hasKV && kv) {
       await kv.incr(key);
@@ -50,15 +51,15 @@ export async function POST(request: NextRequest) {
     
     if (hasKV && kv) {
       [macCount, windowsCount, totalCount] = await Promise.all([
-        kv.get('downloads:mac') || 0,
-        kv.get('downloads:windows') || 0,
-        kv.get('downloads:total') || 0
+        kv.get(getKVKey('downloads:mac')) || 0,
+        kv.get(getKVKey('downloads:windows')) || 0,
+        kv.get(getKVKey('downloads:total')) || 0
       ]);
     } else {
       // 使用模拟数据
-      macCount = mockData['downloads:mac'];
-      windowsCount = mockData['downloads:windows'];
-      totalCount = mockData['downloads:total'];
+      macCount = mockData[getKVKey('downloads:mac')];
+      windowsCount = mockData[getKVKey('downloads:windows')];
+      totalCount = mockData[getKVKey('downloads:total')];
     }
 
     return NextResponse.json({
@@ -82,15 +83,15 @@ export async function GET() {
     
     if (hasKV && kv) {
       [macCount, windowsCount, totalCount] = await Promise.all([
-        kv.get('downloads:mac') || 0,
-        kv.get('downloads:windows') || 0,
-        kv.get('downloads:total') || 0
+        kv.get(getKVKey('downloads:mac')) || 0,
+        kv.get(getKVKey('downloads:windows')) || 0,
+        kv.get(getKVKey('downloads:total')) || 0
       ]);
     } else {
       // 使用模拟数据
-      macCount = mockData['downloads:mac'];
-      windowsCount = mockData['downloads:windows'];
-      totalCount = mockData['downloads:total'];
+      macCount = mockData[getKVKey('downloads:mac')];
+      windowsCount = mockData[getKVKey('downloads:windows')];
+      totalCount = mockData[getKVKey('downloads:total')];
     }
 
     return NextResponse.json({

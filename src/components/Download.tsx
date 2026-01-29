@@ -3,6 +3,7 @@
 import React from 'react';
 import { useLanguage } from '@/components/LanguageContext';
 import { DOWNLOAD_CONTENT } from '@/data/mockData';
+import { useDownloadStats } from '@/hooks/useDownloadStats';
 
 interface DownloadProps {
   macUrl: string;
@@ -13,6 +14,7 @@ interface DownloadProps {
 
 export function Download({ macUrl, windowsUrl, version, onDownloadClick }: DownloadProps) {
   const { t } = useLanguage();
+  const { stats, loading, error } = useDownloadStats();
 
   return (
     <section className="py-32 px-6 bg-[#030712] relative overflow-hidden" id="download">
@@ -37,6 +39,10 @@ export function Download({ macUrl, windowsUrl, version, onDownloadClick }: Downl
             const pillClass = isMac ? 'bg-primary/10 border-primary/20 text-primary' : 'bg-secondary/10 border-secondary/20 text-secondary';
             const btnBg = isMac ? 'bg-primary text-background-dark shadow-[0_0_20px_rgba(0,242,255,0.3)]' : 'bg-secondary text-white shadow-[0_0_20px_rgba(112,0,255,0.3)]';
             const downloadUrl = isMac ? macUrl : windowsUrl;
+            
+            // 获取真实的下载数据
+            const downloadCount = isMac ? stats.mac : stats.windows;
+            const downloadsText = loading ? 'Loading...' : error ? 'N/A' : `${downloadCount.toLocaleString()} DOWNLOADS`;
 
             return (
               <div key={card.platform} className={`group relative rounded-3xl p-1 bg-gradient-to-br ${gradientClass} to-transparent transition-all duration-500`}>
@@ -50,7 +56,7 @@ export function Download({ macUrl, windowsUrl, version, onDownloadClick }: Downl
                   
                   <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border ${pillClass} text-[10px] font-mono mb-8 tracking-widest`}>
                     <span className="material-symbols-outlined text-[12px]">download_done</span>
-                    {translatedCard.downloads}
+                    {downloadsText}
                   </div>
                   
                   <div className="w-full h-px bg-white/5 mb-8"></div>
