@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useLanguage } from '@/components/LanguageContext';
-import { DOWNLOAD_CONTENT } from '@/data/mockData';
+import { DOWNLOAD_CONTENT } from '@/config/downloads';
 import { useDownloadStats } from '@/hooks/useDownloadStats';
 
 interface DownloadProps {

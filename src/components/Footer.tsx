@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useLanguage } from '@/components/LanguageContext';
-import { FOOTER_LINKS } from '@/data/mockData';
+import { FOOTER_LINKS } from '@/config/site';
 
 export function Footer() {
   const { t } = useLanguage();

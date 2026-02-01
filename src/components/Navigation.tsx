@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useLanguage } from '@/components/LanguageContext';
-import { NAV_LINKS } from '@/data/mockData';
+import { NAV_LINKS } from '@/config/site';
 
 export function Navigation() {
   const { t, language, setLanguage } = useLanguage();

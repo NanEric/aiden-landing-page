@@ -48,3 +48,26 @@ export const getDownloadStats = async () => {
     return { mac: 0, windows: 0, total: 0 };
   }
 };
+
+export const DOWNLOAD_CONTENT = {
+    title: 'Ready for Deployment',
+    subtitle: 'Native binaries for production environments',
+    cards: [
+        {
+            platform: 'macOS',
+            icon: 'ios',
+            color: 'primary',
+            details: 'v4.2.0 • Universal Binary & Apple Silicon support',
+            downloads: '14,203 DOWNLOADS',
+            btnText: 'Download .DMG'
+        },
+        {
+            platform: 'Windows',
+            icon: 'window',
+            color: 'secondary',
+            details: 'v4.2.0 • x64 & ARM64',
+            downloads: '10,392 DOWNLOADS',
+            btnText: 'Download .EXE'
+        }
+    ]
+};
