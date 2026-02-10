@@ -41,11 +41,11 @@ export const getDownloadStats = async () => {
       return await response.json();
     } else {
       console.error('Failed to fetch download stats');
-      return { mac: 0, windows: 0, total: 0 };
+      throw new Error('Failed to fetch download stats');
     }
   } catch (error) {
     console.error('Error fetching download stats:', error);
-    return { mac: 0, windows: 0, total: 0 };
+    throw error;
   }
 };
 

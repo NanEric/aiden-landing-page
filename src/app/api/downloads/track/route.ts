@@ -13,17 +13,8 @@ if (hasKV) {
     kv = require('@vercel/kv').kv;
   } catch (error) {
     console.warn('Failed to initialize KV client:', error);
-    // 如果初始化失败，将 hasKV 设为 false
-    const hasKV = false;
   }
 }
-
-// 模拟数据存储（仅在开发环境或没有 KV 时使用）
-const mockData: { [key: string]: number } = {
-  [getKVKey('downloads:mac')]: 1234,
-  [getKVKey('downloads:windows')]: 5678,
-  [getKVKey('downloads:total')]: 6912
-};
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,34 +24,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid platform' }, { status: 400 });
     }
 
+    if (!hasKV || !kv) {
+      return NextResponse.json(
+        { error: 'KV not configured' },
+        { status: 503 }
+      );
+    }
+
     // 增加下载计数
     const key = getKVKey(`downloads:${platform}`);
     const totalKey = getKVKey('downloads:total');
     
-    if (hasKV && kv) {
-      await kv.incr(key);
-      await kv.incr(totalKey);
-    } else {
-      // 降级到模拟数据
-      mockData[key] = (mockData[key] || 0) + 1;
-      mockData[totalKey] = (mockData[totalKey] || 0) + 1;
-    }
+    await kv.incr(key);
+    await kv.incr(totalKey);
 
     // 获取最新的统计数据
-    let macCount, windowsCount, totalCount;
-    
-    if (hasKV && kv) {
-      [macCount, windowsCount, totalCount] = await Promise.all([
-        kv.get(getKVKey('downloads:mac')) || 0,
-        kv.get(getKVKey('downloads:windows')) || 0,
-        kv.get(getKVKey('downloads:total')) || 0
-      ]);
-    } else {
-      // 使用模拟数据
-      macCount = mockData[getKVKey('downloads:mac')];
-      windowsCount = mockData[getKVKey('downloads:windows')];
-      totalCount = mockData[getKVKey('downloads:total')];
-    }
+    const [macCount, windowsCount, totalCount] = await Promise.all([
+      kv.get(getKVKey('downloads:mac')) || 0,
+      kv.get(getKVKey('downloads:windows')) || 0,
+      kv.get(getKVKey('downloads:total')) || 0
+    ]);
 
     return NextResponse.json({
       success: true,
@@ -78,21 +61,18 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    // 获取所有下载统计
-    let macCount, windowsCount, totalCount;
-    
-    if (hasKV && kv) {
-      [macCount, windowsCount, totalCount] = await Promise.all([
-        kv.get(getKVKey('downloads:mac')) || 0,
-        kv.get(getKVKey('downloads:windows')) || 0,
-        kv.get(getKVKey('downloads:total')) || 0
-      ]);
-    } else {
-      // 使用模拟数据
-      macCount = mockData[getKVKey('downloads:mac')];
-      windowsCount = mockData[getKVKey('downloads:windows')];
-      totalCount = mockData[getKVKey('downloads:total')];
+    if (!hasKV || !kv) {
+      return NextResponse.json(
+        { error: 'KV not configured' },
+        { status: 503 }
+      );
     }
+
+    const [macCount, windowsCount, totalCount] = await Promise.all([
+      kv.get(getKVKey('downloads:mac')) || 0,
+      kv.get(getKVKey('downloads:windows')) || 0,
+      kv.get(getKVKey('downloads:total')) || 0
+    ]);
 
     return NextResponse.json({
       mac: macCount,

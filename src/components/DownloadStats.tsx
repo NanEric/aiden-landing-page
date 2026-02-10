@@ -13,22 +13,21 @@ interface DownloadStats {
 export const DownloadStats: React.FC = () => {
   const [stats, setStats] = useState<DownloadStats>({ mac: 0, windows: 0, total: 0 });
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
         const data = await getDownloadStats();
-        // 确保数据不为 null 或 undefined
-        const safeData = {
+        setStats({
           mac: data?.mac || 0,
           windows: data?.windows || 0,
           total: data?.total || 0
-        };
-        setStats(safeData);
+        });
+        setError(null);
       } catch (error) {
         console.error('Failed to fetch download stats:', error);
-        // 出错时使用默认值
-        setStats({ mac: 0, windows: 0, total: 0 });
+        setError(error instanceof Error ? error.message : 'Unknown error');
       } finally {
         setLoading(false);
       }
@@ -47,6 +46,15 @@ export const DownloadStats: React.FC = () => {
       <div className="flex items-center gap-2 text-sm text-slate-500">
         <Download className="w-4 h-4 animate-pulse" />
         <span>Loading stats...</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center gap-2 text-sm text-slate-500">
+        <Download className="w-4 h-4" />
+        <span>—</span>
       </div>
     );
   }

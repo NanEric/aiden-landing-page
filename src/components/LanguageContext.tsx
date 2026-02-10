@@ -12,17 +12,13 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [language, setLanguage] = useState<Language>('en');
-
-    useEffect(() => {
-        // Detect browser language
-        const browserLang = navigator.language.split('-')[0];
-        if (browserLang === 'zh') {
-            setLanguage('zh');
-        } else {
-            setLanguage('en');
+    const [language, setLanguage] = useState<Language>(() => {
+        if (typeof window !== 'undefined') {
+            const browserLang = navigator.language.split('-')[0];
+            return browserLang === 'zh' ? 'zh' : 'en';
         }
-    }, []);
+        return 'en';
+    });
 
     const value = {
         language,
