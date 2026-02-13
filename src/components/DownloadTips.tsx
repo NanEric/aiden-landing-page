@@ -14,7 +14,7 @@ export const DownloadTips: React.FC<DownloadTipsProps> = ({ isOpen, onClose }) =
     const [dontShowAgain, setDontShowAgain] = useState(false);
     const { t } = useLanguage();
 
-    const xattrCommand = 'sudo xattr -cr /Applications/aiden-monitor.app';
+    const xattrCommand = 'sudo xattr -cr /Applications/aiden.app';
 
     const copyCommand = () => {
         navigator.clipboard.writeText(xattrCommand);
@@ -62,7 +62,7 @@ export const DownloadTips: React.FC<DownloadTipsProps> = ({ isOpen, onClose }) =
                         <div className="space-y-1">
                             <h4 className="text-xs font-bold text-slate-900">{t.tips.step1Title}</h4>
                             <p className="text-[11px] text-slate-500 leading-normal">
-                                {t.tips.step1DescPart1}<span className="text-primary font-mono font-bold">aiden-monitor.app</span> {t.tips.step1DescPart2}<span className="text-slate-700 font-bold">/Applications</span>）
+                                {t.tips.step1DescPart1}<span className="text-primary font-mono font-bold">aiden.app</span> {t.tips.step1DescPart2}<span className="text-slate-700 font-bold">/Applications</span>）
                             </p>
                         </div>
                     </div>
